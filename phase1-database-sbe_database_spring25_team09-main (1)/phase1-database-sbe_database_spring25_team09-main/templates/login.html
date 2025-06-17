@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - OM AL-MASRYEN{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h2>Login</h2>
+    <div class="auth-tabs">
+        <button class="tab-btn active" data-target="patient">Patient</button>
+        <button class="tab-btn" data-target="doctor">Doctor</button>
+    </div>
+
+    <div class="auth-forms">
+        <form id="patient-form" method="POST" action="{{ url_for('login') }}" class="auth-form active">
+            <input type="hidden" name="user_type" value="patient">
+
+            <div class="form-group">
+                <label for="medical_record_number">Medical Record Number</label>
+                <input type="text" id="medical_record_number" name="medical_record_number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="patient_password">Password</label>
+                <input type="password" id="patient_password" name="password" required>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn primary-btn">Login</button>
+                <p class="form-link">Don't have an account? <a href="{{ url_for('signup') }}">Sign up here</a></p>
+            </div>
+        </form>
+
+        <form id="doctor-form" method="POST" action="{{ url_for('login') }}" class="auth-form">
+            <input type="hidden" name="user_type" value="doctor">
+
+            <div class="form-group">
+                <label for="license_number">License Number</label>
+                <input type="text" id="license_number" name="license_number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="doctor_password">Password</label>
+                <input type="password" id="doctor_password" name="password" required>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn primary-btn">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const authForms = document.querySelectorAll('.auth-form');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const target = this.getAttribute('data-target');
+
+                // Update tab buttons
+                tabBtns.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+
+                // Update forms
+                authForms.forEach(form => form.classList.remove('active'));
+                document.getElementById(`${target}-form`).classList.add('active');
+            });
+        });
+    });
+</script>
+{% endblock %}
