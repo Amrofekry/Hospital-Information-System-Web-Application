@@ -1,0 +1,9 @@
+{
+  "name": "om-al-masryen-hospital",
+  "version": "1.0.0",
+  "description": "Hospital Management System",
+  "scripts": {
+    "build": "python build_static.py"
+  },
+  "devDependencies": {}
+}
